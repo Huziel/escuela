@@ -64,7 +64,7 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Inicio de sesión exitoso.',
             'data' => [
-                'user' => new UserResource($user->load('roles.permissions')),
+                'user' => new UserResource($user->load(['roles.permissions', 'alumno'])),
                 'token' => $token,
             ],
         ]);
@@ -106,7 +106,7 @@ class AuthController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => new UserResource($request->user()->load('roles.permissions')),
+            'data' => new UserResource($request->user()->load(['roles.permissions', 'alumno'])),
         ]);
     }
 

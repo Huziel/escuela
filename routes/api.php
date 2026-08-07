@@ -4,11 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\DashboardController;
 use App\Http\Controllers\Api\V1\AulaController;
+use App\Http\Controllers\Api\V1\PlanEstudioController;
+use App\Http\Controllers\Api\V1\Import\ImportController;
+use App\Http\Controllers\Api\V1\GeneracionController;
 
 Route::prefix('v1')->group(function () {
     // Auth - public
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1');
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->middleware('throttle:3,1');
     Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 
     // Auth - authenticated
@@ -25,6 +28,19 @@ Route::prefix('v1')->group(function () {
 
         Route::get('/aulas/list', [AulaController::class, 'listAll']);
         Route::apiResource('/aulas', AulaController::class)->except(['show']);
+
+        Route::get('/generaciones/all', [GeneracionController::class, 'all']);
+        Route::apiResource('/generaciones', GeneracionController::class);
+
+        Route::get('/import/template/{type}', [ImportController::class, 'template']);
+        Route::post('/import/preview/{type}', [ImportController::class, 'preview']);
+        Route::post('/import/process/{type}', [ImportController::class, 'process']);
+
+        Route::get('/planes-estudio', [PlanEstudioController::class, 'index']);
+        Route::post('/planes-estudio', [PlanEstudioController::class, 'store']);
+        Route::put('/planes-estudio/{id}', [PlanEstudioController::class, 'update']);
+        Route::delete('/planes-estudio/{id}', [PlanEstudioController::class, 'destroy']);
+        Route::post('/planes-estudio/{id}/materias', [PlanEstudioController::class, 'syncMaterias']);
 
         // Module routes
         require base_path('app/Modules/Usuarios/Routes/api.php');
@@ -43,6 +59,7 @@ Route::prefix('v1')->group(function () {
         require base_path('app/Modules/Auditoria/Routes/api.php');
         require base_path('app/Modules/Configuracion/Routes/api.php');
         require base_path('app/Modules/Horarios/Routes/api.php');
+        require base_path('app/Modules/PortalAlumno/Routes/api.php');
     });
 });
 

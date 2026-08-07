@@ -12,7 +12,8 @@ class Grupo extends Model
 
     protected $fillable = [
         'nombre', 'semestre', 'especialidad_id', 'turno',
-        'capacidad', 'hora_inicio', 'hora_fin', 'tutor_id', 'ciclo_escolar', 'activo', 'aula_id',
+        'capacidad', 'hora_inicio', 'hora_fin', 'tutor_id',
+        'ciclo_escolar', 'ciclo_escolar_id', 'activo', 'aula_id',
     ];
 
     protected $casts = [
@@ -24,6 +25,7 @@ class Grupo extends Model
     public function especialidad() { return $this->belongsTo(\App\Modules\Especialidades\Models\Especialidad::class); }
     public function tutor() { return $this->belongsTo(\App\Modules\Docentes\Models\Docente::class, 'tutor_id'); }
     public function aula() { return $this->belongsTo(\App\Models\Aula::class); }
+    public function cicloEscolar() { return $this->belongsTo(\App\Models\CicloEscolar::class, 'ciclo_escolar_id'); }
     public function alumnos() { return $this->hasMany(\App\Modules\Alumnos\Models\Alumno::class); }
     public function horarios() { return $this->hasMany(\App\Modules\Horarios\Models\Horario::class); }
     public function docentes() { return $this->belongsToMany(\App\Modules\Docentes\Models\Docente::class, 'docente_grupo'); }

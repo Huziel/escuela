@@ -34,6 +34,15 @@ class UserResource extends JsonResource
                 $this->relationLoaded('roles'),
                 fn () => $this->getAllPermissions()->pluck('name')
             ),
+            'alumno' => $this->whenLoaded('alumno', fn () => [
+                'id' => $this->alumno->id,
+                'matricula' => $this->alumno->matricula,
+                'semestre' => $this->alumno->semestre,
+                'estatus' => $this->alumno->estatus,
+                'especialidad' => $this->alumno->especialidad?->nombre,
+                'grupo' => $this->alumno->grupo?->nombre,
+                'turno' => $this->alumno->turno ?? $this->alumno->grupo?->turno,
+            ]),
             'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
         ];
     }

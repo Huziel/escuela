@@ -12,4 +12,4 @@ Route::get('/{any}', function () {
         'success' => true,
         'message' => 'SICE API v1.0.0',
     ]);
-})->where('any', '^(?!api).*$');
+})->where('any', '^(?!api|storage).*$');

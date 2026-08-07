@@ -12,6 +12,7 @@ class CalificacionSeeder extends Seeder
 {
     public function run(): void
     {
+        Calificacion::truncate();
         $alumnos = Alumno::all();
         $docentes = Docente::all();
 

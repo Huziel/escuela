@@ -9,6 +9,8 @@ class ConfiguracionSeeder extends Seeder
 {
     public function run(): void
     {
+        Configuracion::truncate();
+        CicloEscolar::truncate();
         $configs = [
             ['clave' => 'institucion_nombre', 'valor' => 'CETIS No. 1', 'tipo' => 'string', 'descripcion' => 'Nombre de la institución'],
             ['clave' => 'institucion_clave', 'valor' => '09DCT0001Z', 'tipo' => 'string', 'descripcion' => 'Clave de la institución'],

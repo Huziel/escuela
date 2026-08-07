@@ -24,6 +24,7 @@ class Materia extends Model
     ];
 
     public function especialidad() { return $this->belongsTo(\App\Modules\Especialidades\Models\Especialidad::class); }
+    public function planes() { return $this->belongsToMany(\App\Models\PlanEstudio::class, 'plan_materia', 'materia_id', 'plan_id')->withPivot('semestre', 'horas'); }
     public function docentes() { return $this->belongsToMany(\App\Modules\Docentes\Models\Docente::class, 'docente_materia'); }
     public function horarios() { return $this->hasMany(\App\Modules\Horarios\Models\Horario::class); }
     public function calificaciones() { return $this->hasMany(\App\Modules\Calificaciones\Models\Calificacion::class); }

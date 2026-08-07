@@ -1,0 +1,26 @@
+<?php
+require __DIR__.'/vendor/autoload.php';
+$app = require_once __DIR__.'/bootstrap/app.php';
+$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+
+use App\Modules\Grupos\Models\Grupo;
+use Illuminate\Support\Facades\DB;
+
+// Real grupo names are compact: "1A", "1BP", "2AC", etc.
+// Student names have spaces: "ANGEL YAHIR", "CITLALLI"
+// Delete groups with spaces in name (student names imported as groups)
+DB::statement('SET FOREIGN_KEY_CHECKS=0');
+$deleted = Grupo::where('nombre', 'REGEXP', '[[:space:]]')->delete();
+DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
+echo "Grupos eliminados (nombres de alumnos): $deleted\n";
+echo "Total grupos restantes: " . Grupo::count() . "\n";
+
+// Show remaining real groups
+echo "\nGrupos reales:\n";
+Grupo::orderBy('nombre')->get()->each(function($g) {
+    echo sprintf("%3d | %-10s | sem:%-2d | esp:%-2s | ciclo:%-8s | turno:%-10s\n",
+        $g->id, $g->nombre, $g->semestre ?? 0,
+        $g->especialidad_id ?? '-', $g->ciclo_escolar ?? '-', $g->turno ?? '-'
+    );
+});

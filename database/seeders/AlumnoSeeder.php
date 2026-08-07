@@ -14,6 +14,7 @@ class AlumnoSeeder extends Seeder
 {
     public function run(): void
     {
+        Alumno::truncate();
         $faker = Faker::create('es_MX');
         $especialidades = Especialidad::all();
         $grupos = Grupo::all();

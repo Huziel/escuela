@@ -3,14 +3,17 @@ namespace App\Modules\Alumnos\Services;
 
 use App\Services\BaseService;
 use App\Modules\Alumnos\Repositories\AlumnoRepository;
+use App\Modules\Calificaciones\Services\CalificacionService;
 use App\Helpers\AuditoriaHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class AlumnoService extends BaseService
 {
-    public function __construct(protected AlumnoRepository $repository)
-    {
+    public function __construct(
+        protected AlumnoRepository $repository,
+        protected CalificacionService $calificacionService
+    ) {
         parent::__construct();
         $this->repository = $repository;
     }
@@ -29,14 +32,27 @@ class AlumnoService extends BaseService
     {
         $alumno = $this->repository->create($data);
         AuditoriaHelper::registrar('create', 'alumnos', $alumno->id, null, $alumno->toArray());
+
+        // Sincronizar calificaciones si el alumno fue creado con grupo asignado
+        if (!empty($alumno->grupo_id)) {
+            $this->calificacionService->sincronizarCalificacionesParaAlumno($alumno);
+        }
+
         return $alumno;
     }
 
     public function update(int $id, array $data): Model
     {
         $anterior = $this->repository->find($id)?->toArray();
+        $grupoAnterior = $anterior['grupo_id'] ?? null;
         $alumno = $this->repository->update($id, $data);
         AuditoriaHelper::registrar('update', 'alumnos', $id, $anterior, $alumno->toArray());
+
+        // Sincronizar calificaciones si el alumno tiene grupo asignado (nuevo o cambiado)
+        if (!empty($alumno->grupo_id)) {
+            $this->calificacionService->sincronizarCalificacionesParaAlumno($alumno);
+        }
+
         return $alumno;
     }
 

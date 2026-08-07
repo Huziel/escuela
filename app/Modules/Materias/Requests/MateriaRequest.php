@@ -13,7 +13,7 @@ class MateriaRequest extends FormRequest
             'horas_teoricas' => 'nullable|integer|min:0',
             'horas_practicas' => 'nullable|integer|min:0',
             'semestre' => 'required|integer|min:1|max:12',
-            'especialidad_id' => 'required|exists:especialidades,id',
+            'especialidad_id' => 'nullable|exists:especialidades,id',
             'activo' => 'boolean',
         ];
     }

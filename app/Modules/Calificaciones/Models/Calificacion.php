@@ -12,9 +12,11 @@ class Calificacion extends Model
     protected $table = 'calificaciones';
 
     protected $fillable = [
-        'alumno_id', 'materia_id', 'grupo_id', 'docente_id', 'periodo',
+        'alumno_id', 'materia_id', 'grupo_id', 'docente_id',
+        'periodo', 'ciclo_escolar_id',
         'parcial1', 'parcial2', 'parcial3', 'ordinario', 'extraordinario',
         'promedio_final', 'redondeo', 'estatus', 'observaciones',
+        'asistencia_p1', 'asistencia_p2', 'asistencia_p3',
     ];
 
     protected $casts = [
@@ -25,4 +27,5 @@ class Calificacion extends Model
     public function materia() { return $this->belongsTo(\App\Modules\Materias\Models\Materia::class); }
     public function grupo() { return $this->belongsTo(\App\Modules\Grupos\Models\Grupo::class); }
     public function docente() { return $this->belongsTo(\App\Modules\Docentes\Models\Docente::class); }
+    public function cicloEscolar() { return $this->belongsTo(\App\Models\CicloEscolar::class, 'ciclo_escolar_id'); }
 }

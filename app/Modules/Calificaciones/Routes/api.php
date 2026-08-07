@@ -8,4 +8,7 @@ Route::prefix('calificaciones')->group(function(){
     Route::put('/{id}',[CalificacionController::class,'update'])->middleware('permission:calificaciones.editar');
     Route::delete('/{id}',[CalificacionController::class,'destroy'])->middleware('permission:calificaciones.eliminar');
     Route::get('/kardex/{alumnoId}',[CalificacionController::class,'kardex'])->middleware('permission:calificaciones.listar');
+    Route::get('/grupo/{grupoId}/materia/{materiaId}',[CalificacionController::class,'grupoMateria'])->middleware('permission:calificaciones.listar');
+    Route::post('/guardar-lote',[CalificacionController::class,'guardarLote'])->middleware('permission:calificaciones.editar');
+    Route::post('/sincronizar-grupo/{grupoId}/materia/{materiaId}',[CalificacionController::class,'sincronizarGrupoMateria'])->middleware('permission:calificaciones.editar');
 });

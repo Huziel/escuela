@@ -8,6 +8,7 @@ class NoticiaSeeder extends Seeder
 {
     public function run(): void
     {
+        Noticia::truncate();
         $noticias = [
             ['titulo' => 'Inicio de Clases 2024-2025', 'contenido' => 'Les damos la bienvenida al nuevo ciclo escolar. Las clases inician el 26 de agosto.', 'fecha_publicacion' => '2024-08-20'],
             ['titulo' => 'Suspensión de Labores', 'contenido' => 'Se suspenden labores el próximo lunes 16 de septiembre por día festivo.', 'fecha_publicacion' => '2024-09-10'],

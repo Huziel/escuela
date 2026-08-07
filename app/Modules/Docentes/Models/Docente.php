@@ -27,4 +27,5 @@ class Docente extends Model
     public function gruposTutor() { return $this->hasMany(\App\Modules\Grupos\Models\Grupo::class, 'tutor_id'); }
     public function horarios() { return $this->hasMany(\App\Modules\Horarios\Models\Horario::class); }
     public function especialidadRel() { return $this->belongsTo(\App\Modules\Especialidades\Models\Especialidad::class, 'especialidad_id'); }
+    public function especialidades() { return $this->belongsToMany(\App\Modules\Especialidades\Models\Especialidad::class, 'docente_especialidad'); }
 }

@@ -10,16 +10,16 @@ class EspecialidadRepository extends BaseRepository
     
     public function paginate(int $perPage = 15, array $columns = ['*'], array $relations = []): LengthAwarePaginator
     {
-        return $this->model->withCount(['alumnos','materias','grupos'])->paginate($perPage, $columns);
+        return $this->model->with('planes')->withCount(['alumnos','materias','grupos'])->paginate($perPage, $columns);
     }
 
     public function filtrar(array $filters, int $perPage = 15): LengthAwarePaginator
     {
-        $query = $this->model->withCount(['alumnos','materias','grupos']);
+        $query = $this->model->with('planes')->withCount(['alumnos','materias','grupos']);
         if (!empty($filters['search'])) $query->where(function($q) use ($filters) { $q->where('nombre','like','%'.$filters['search'].'%')->orWhere('clave','like','%'.$filters['search'].'%'); });
         if (isset($filters['activo'])) $query->where('activo', $filters['activo']);
         return $query->orderBy('nombre')->paginate($perPage);
     }
 
-    public function findAll() { return $this->model->where('activo', true)->get(); }
+    public function findAll() { return $this->model->with('planes')->where('activo', true)->get(); }
 }

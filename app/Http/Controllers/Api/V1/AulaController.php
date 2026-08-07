@@ -14,7 +14,7 @@ class AulaController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        $query = Aula::query();
+        $query = Aula::with('grupos');
         if ($request->filled('search')) {
             $query->where('nombre', 'like', '%' . $request->search . '%');
         }
@@ -23,7 +23,7 @@ class AulaController extends Controller
 
     public function listAll(): JsonResponse
     {
-        return $this->success(Aula::where('activo', true)->orderBy('nombre')->get(), 'Aulas activas.');
+        return $this->success(Aula::with('grupos')->where('activo', true)->orderBy('nombre')->get(), 'Aulas activas.');
     }
 
     public function store(Request $request): JsonResponse

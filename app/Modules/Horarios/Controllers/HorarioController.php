@@ -33,17 +33,25 @@ class HorarioController extends Controller
             'hora_fin' => 'required|date_format:H:i|after:hora_inicio',
         ]);
 
+        $data['dia'] = $this->normalizarDia($data['dia']);
+
         $grupo = Grupo::findOrFail($data['grupo_id']);
         if ($grupo->hora_inicio && $grupo->hora_fin) {
-            if ($data['hora_inicio'] < $grupo->hora_inicio) {
-                return $this->error("La hora de inicio no puede ser anterior a las {$grupo->hora_inicio}.", 422);
+            $horaInicioGrupo = substr($grupo->hora_inicio, 0, 5);
+            $horaFinGrupo = substr($grupo->hora_fin, 0, 5);
+            if ($data['hora_inicio'] < $horaInicioGrupo) {
+                return $this->error("La hora de inicio no puede ser anterior a las {$horaInicioGrupo}.", 422);
             }
-            if ($data['hora_fin'] > $grupo->hora_fin) {
-                return $this->error("La hora de fin no puede ser posterior a las {$grupo->hora_fin}.", 422);
+            if ($data['hora_fin'] > $horaFinGrupo) {
+                return $this->error("La hora de fin no puede ser posterior a las {$horaFinGrupo}.", 422);
             }
         }
 
         $h = Horario::create($data);
+        DB::table('docente_grupo')->insertOrIgnore([
+            'docente_id' => $data['docente_id'],
+            'grupo_id' => $data['grupo_id'],
+        ]);
         return $this->success($h->load(['grupo','materia','docente.user']), 'Horario creado.', 201);
     }
 
@@ -58,14 +66,34 @@ class HorarioController extends Controller
         $h = Horario::findOrFail($id);
         $data = $request->validate([
             'grupo_id' => 'exists:grupos,id', 'materia_id' => 'exists:materias,id', 'docente_id' => 'exists:docentes,id',
-            'dia' => 'in:Lunes,Martes,Miércoles,Miercoles,Jueves,Viernes,lunes,martes,miercoles,jueves,viernes',
+            'dia' => 'string',
             'hora_inicio' => 'date_format:H:i','hora_fin' => 'date_format:H:i|after:hora_inicio',
         ]);
+        if (!empty($data['dia'])) {
+            $data['dia'] = $this->normalizarDia($data['dia']);
+        }
         $h->update($data);
+        if (!empty($data['docente_id']) && !empty($data['grupo_id'])) {
+            DB::table('docente_grupo')->insertOrIgnore([
+                'docente_id' => $data['docente_id'],
+                'grupo_id' => $data['grupo_id'],
+            ]);
+        }
         return $this->success($h->load(['grupo','materia','docente.user']), 'Actualizado.');
     }
 
     public function destroy(int $id): JsonResponse { Horario::findOrFail($id)->delete(); return $this->success(null,'Eliminado.'); }
+
+    private function normalizarDia(string $dia): string
+    {
+        $lower = strtolower(
+            str_replace(['á','é','í','ó','ú','ü'], ['a','e','i','o','u','u'],
+                str_replace(['Á','É','Í','Ó','Ú','Ü'], ['a','e','i','o','u','u'], $dia)
+            )
+        );
+        $validos = ['lunes','martes','miercoles','jueves','viernes'];
+        return in_array($lower, $validos) ? $lower : 'lunes';
+    }
 
     public function resumen(Request $request): JsonResponse
     {
@@ -86,7 +114,10 @@ class HorarioController extends Controller
         $docentes = Docente::where(function($q) use ($request, $materia) {
             $q->whereHas('materias', fn($sq) => $sq->where('materia_id', $request->materia_id));
             if ($materia->especialidad_id) {
+                $q->orWhereHas('especialidades', fn($sq) => $sq->where('especialidad_id', $materia->especialidad_id));
                 $q->orWhere('especialidad_id', $materia->especialidad_id);
+            } else {
+                $q->orWhere('id', '>', 0);
             }
         })
         ->with('user')

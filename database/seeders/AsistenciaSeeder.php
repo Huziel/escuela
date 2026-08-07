@@ -13,6 +13,7 @@ class AsistenciaSeeder extends Seeder
 {
     public function run(): void
     {
+        Asistencia::truncate();
         $alumnos = Alumno::take(25)->get();
         $docentes = Docente::all();
 

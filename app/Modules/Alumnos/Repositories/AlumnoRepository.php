@@ -36,6 +36,7 @@ class AlumnoRepository extends BaseRepository
         if (!empty($filters['semestre'])) $query->where('semestre', $filters['semestre']);
         if (!empty($filters['grupo_id'])) $query->where('grupo_id', $filters['grupo_id']);
         if (!empty($filters['estatus'])) $query->where('estatus', $filters['estatus']);
+        if (!empty($filters['ciclo_escolar'])) $query->where('ciclo_escolar', $filters['ciclo_escolar']);
 
         return $query->orderBy('created_at', 'desc')->paginate($perPage);
     }

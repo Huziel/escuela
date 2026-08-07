@@ -13,6 +13,7 @@ class Alumno extends Model
     protected $fillable = [
         'user_id', 'matricula', 'curp', 'especialidad_id', 'semestre',
         'grupo_id', 'tutor_id', 'estatus', 'fecha_ingreso', 'observaciones',
+        'ciclo_escolar', 'ciclo_escolar_id', 'turno', 'generacion_id',
     ];
 
     protected $casts = [
@@ -24,6 +25,8 @@ class Alumno extends Model
     public function especialidad() { return $this->belongsTo(\App\Modules\Especialidades\Models\Especialidad::class); }
     public function grupo() { return $this->belongsTo(\App\Modules\Grupos\Models\Grupo::class); }
     public function tutor() { return $this->belongsTo(\App\Modules\Tutores\Models\Tutor::class); }
+    public function cicloEscolar() { return $this->belongsTo(\App\Models\CicloEscolar::class, 'ciclo_escolar_id'); }
+    public function generacion() { return $this->belongsTo(\App\Models\Generacion::class); }
     public function inscripciones() { return $this->hasMany(\App\Modules\Inscripciones\Models\Inscripcion::class); }
     public function calificaciones() { return $this->hasMany(\App\Modules\Calificaciones\Models\Calificacion::class); }
     public function asistencias() { return $this->hasMany(\App\Modules\Asistencia\Models\Asistencia::class); }

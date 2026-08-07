@@ -9,7 +9,7 @@ class AlumnoRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
-        $nullable = ['curp', 'grupo_id', 'tutor_id', 'observaciones'];
+        $nullable = ['curp', 'grupo_id', 'tutor_id', 'observaciones', 'ciclo_escolar', 'turno', 'generacion_id', 'ciclo_escolar_id'];
         foreach ($nullable as $field) {
             if ($this->has($field) && ($this->$field === '' || $this->$field === 'null')) {
                 $this->merge([$field => null]);
@@ -25,10 +25,14 @@ class AlumnoRequest extends FormRequest
             'especialidad_id' => 'required|exists:especialidades,id',
             'semestre' => 'required|integer|min:1|max:12',
             'grupo_id' => 'nullable|exists:grupos,id',
-            'tutor_id' => 'nullable|exists:docentes,id',
-            'estatus' => 'required|in:activo,inactivo,egresado,baja,bloqueado',
+            'tutor_id' => 'nullable|exists:tutores,id',
+            'estatus' => 'required|in:activo,inactivo,egresado,baja,bloqueado,irregular',
             'fecha_ingreso' => 'required|date',
             'observaciones' => 'nullable|string|max:500',
+            'ciclo_escolar' => 'nullable|string|max:50',
+            'ciclo_escolar_id' => 'nullable|exists:ciclos_escolares,id',
+            'generacion_id' => 'nullable|exists:generaciones,id',
+            'turno' => 'nullable|in:matutino,vespertino,nocturno',
         ];
         if ($this->isMethod('post')) {
             $rules['user_id'] = 'required|exists:users,id';

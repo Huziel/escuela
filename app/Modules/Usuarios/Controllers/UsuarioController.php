@@ -117,4 +117,36 @@ class UsuarioController extends Controller
         $accesos = Acceso::where('user_id', $id)->latest()->paginate(20);
         return $this->paginated($accesos, 'Bitácora de acceso.');
     }
+
+    public function permissions(int $id): JsonResponse
+    {
+        $user = User::with('permissions')->find($id);
+        if (!$user) return $this->error('Usuario no encontrado.', 404);
+        return $this->success([
+            'direct' => $user->getDirectPermissions()->pluck('name'),
+            'via_roles' => $user->getPermissionsViaRoles()->pluck('name'),
+            'all' => $user->getAllPermissions()->pluck('name'),
+            'roles' => $user->getRoleNames(),
+        ], 'Permisos del usuario.');
+    }
+
+    public function syncPermissions(int $id, Request $request): JsonResponse
+    {
+        $user = User::find($id);
+        if (!$user) return $this->error('Usuario no encontrado.', 404);
+        $request->validate(['permissions' => 'array', 'permissions.*' => 'string']);
+        $user->syncPermissions($request->permissions ?? []);
+        app(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+        return $this->success([
+            'permissions' => $user->getAllPermissions()->pluck('name'),
+        ], 'Permisos actualizados.');
+    }
+
+    public function allPermissions(): JsonResponse
+    {
+        $permissions = \Spatie\Permission\Models\Permission::all()->groupBy(function ($p) {
+            return explode('.', $p->name)[0];
+        })->map(fn($g) => $g->pluck('name'));
+        return $this->success($permissions, 'Lista de permisos.');
+    }
 }

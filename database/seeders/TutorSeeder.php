@@ -11,6 +11,7 @@ class TutorSeeder extends Seeder
 {
     public function run(): void
     {
+        Tutor::truncate();
         $faker = Faker::create('es_MX');
         $parentescos = ['padre','madre','tutor','otro'];
 

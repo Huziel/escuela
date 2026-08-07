@@ -9,14 +9,14 @@ class DocenteRepository extends BaseRepository
 {
     protected function getModelClass(): string { return Docente::class; }
 
-    public function paginate(int $perPage = 15, array $columns = ['*'], array $relations = ['user', 'especialidadRel', 'materias', 'grupos']): LengthAwarePaginator
+    public function paginate(int $perPage = 15, array $columns = ['*'], array $relations = ['user', 'especialidadRel', 'especialidades', 'materias', 'grupos']): LengthAwarePaginator
     {
         return $this->model->with($relations)->paginate($perPage, $columns);
     }
 
     public function filtrar(array $filters, int $perPage = 15): LengthAwarePaginator
     {
-        $query = $this->model->with(['user', 'especialidadRel', 'materias', 'grupos']);
+        $query = $this->model->with(['user', 'especialidadRel', 'especialidades', 'materias', 'grupos']);
         if (!empty($filters['search'])) {
             $search = $filters['search'];
             $query->where('numero_empleado', 'like', "%{$search}%")
@@ -29,5 +29,5 @@ class DocenteRepository extends BaseRepository
         return $query->orderBy('created_at', 'desc')->paginate($perPage);
     }
 
-    public function findAll() { return $this->model->with(['user', 'especialidadRel'])->where('estatus', 'activo')->get(); }
+    public function findAll() { return $this->model->with(['user', 'especialidadRel', 'especialidades'])->where('estatus', 'activo')->get(); }
 }

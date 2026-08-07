@@ -27,9 +27,9 @@ class PermissionsServiceProvider extends ServiceProvider
             // Materias
             'materias.listar','materias.crear','materias.editar','materias.eliminar',
             // Inscripciones
-            'inscripciones.listar','inscripciones.crear','inscripciones.aprobar','inscripciones.rechazar',
+            'inscripciones.listar','inscripciones.crear','inscripciones.editar','inscripciones.aprobar','inscripciones.rechazar',
             // Calificaciones
-            'calificaciones.listar','calificaciones.crear','calificaciones.editar','calificaciones.exportar',
+            'calificaciones.listar','calificaciones.crear','calificaciones.editar','calificaciones.eliminar','calificaciones.exportar',
             // Asistencia
             'asistencia.listar','asistencia.registrar','asistencia.justificar',
             // Tutores
@@ -44,6 +44,10 @@ class PermissionsServiceProvider extends ServiceProvider
             'auditoria.ver',
             // Dashboard
             'dashboard.ver',
+            // Horarios
+            'horarios.listar','horarios.crear','horarios.editar','horarios.eliminar',
+            // Notificaciones
+            'notificaciones.ver',
         ];
         
         foreach ($permissions as $perm) {

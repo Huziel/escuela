@@ -21,4 +21,6 @@ class Especialidad extends Model
     public function alumnos() { return $this->hasMany(\App\Modules\Alumnos\Models\Alumno::class); }
     public function materias() { return $this->hasMany(\App\Modules\Materias\Models\Materia::class); }
     public function grupos() { return $this->hasMany(\App\Modules\Grupos\Models\Grupo::class); }
+    public function planes() { return $this->hasMany(\App\Models\PlanEstudio::class); }
+    public function docentes() { return $this->belongsToMany(\App\Modules\Docentes\Models\Docente::class, 'docente_especialidad'); }
 }

@@ -8,6 +8,7 @@ class EspecialidadSeeder extends Seeder
 {
     public function run(): void
     {
+        Especialidad::truncate();
         $especialidades = [
             ['clave' => 'PROG', 'nombre' => 'Programación', 'descripcion' => 'Técnico en Programación de Software', 'activo' => true],
             ['clave' => 'CONT', 'nombre' => 'Contabilidad', 'descripcion' => 'Técnico en Contabilidad y Finanzas', 'activo' => true],

@@ -9,6 +9,7 @@ class MateriaSeeder extends Seeder
 {
     public function run(): void
     {
+        Materia::truncate();
         $especialidades = Especialidad::all();
         if ($especialidades->isEmpty()) return;
 

@@ -12,4 +12,7 @@ Route::prefix('grupos')->group(function(){
     Route::get('/{id}/docentes',[GrupoController::class,'docentes'])->middleware('permission:grupos.listar');
     Route::post('/{id}/docentes',[GrupoController::class,'asignarDocente'])->middleware('permission:grupos.editar');
     Route::delete('/{id}/docentes/{docente_id}',[GrupoController::class,'removerDocente'])->middleware('permission:grupos.editar');
+    Route::get('/{id}/alumnos',[GrupoController::class,'alumnos'])->middleware('permission:grupos.listar');
+    Route::post('/{id}/alumnos',[GrupoController::class,'asignarAlumnos'])->middleware('permission:grupos.editar');
+    Route::delete('/{id}/alumnos/{alumno_id}',[GrupoController::class,'removerAlumno'])->middleware('permission:grupos.editar');
 });

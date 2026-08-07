@@ -11,4 +11,5 @@ Route::prefix('alumnos')->group(function () {
     Route::post('/{id}/bloquear', [AlumnoController::class, 'bloquear'])->middleware('permission:alumnos.bloquear');
     Route::post('/{id}/desbloquear', [AlumnoController::class, 'desbloquear'])->middleware('permission:alumnos.bloquear');
     Route::get('/{id}/historial', [AlumnoController::class, 'historial'])->middleware('permission:alumnos.listar');
+    Route::post('/promover', [AlumnoController::class, 'promover'])->middleware('permission:alumnos.editar');
 });

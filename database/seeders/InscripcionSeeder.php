@@ -12,6 +12,7 @@ class InscripcionSeeder extends Seeder
 {
     public function run(): void
     {
+        Inscripcion::truncate();
         $faker = Faker::create('es_MX');
         $alumnos = Alumno::all();
         $grupos = Grupo::all();

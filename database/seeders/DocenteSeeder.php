@@ -11,6 +11,7 @@ class DocenteSeeder extends Seeder
 {
     public function run(): void
     {
+        Docente::truncate();
         $faker = Faker::create('es_MX');
         $especialidades = ['Programación','Matemáticas','Física','Química','Inglés','Historia','Electrónica','Administración'];
         $grados = ['Licenciatura','Maestría','Doctorado','Ingeniería'];

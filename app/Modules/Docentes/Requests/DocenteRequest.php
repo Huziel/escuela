@@ -7,10 +7,12 @@ class DocenteRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'numero_empleado' => 'required|string|max:20|unique:docentes,numero_empleado,'.$this->route('id'),
+            'numero_empleado' => 'nullable|string|max:20|unique:docentes,numero_empleado,'.$this->route('id'),
             'curp' => 'nullable|string|max:18',
             'especialidad' => 'nullable|string|max:200',
             'especialidad_id' => 'nullable|exists:especialidades,id',
+            'especialidad_ids' => 'nullable|array',
+            'especialidad_ids.*' => 'exists:especialidades,id',
             'grado_academico' => 'nullable|string|max:100',
             'rfc' => 'nullable|string|max:13',
             'estatus' => 'required|in:activo,inactivo,baja',

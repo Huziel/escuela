@@ -18,8 +18,8 @@ class RolePermissionSeeder extends Seeder
             'grupos.listar','grupos.crear','grupos.editar','grupos.eliminar',
             'especialidades.listar','especialidades.crear','especialidades.editar','especialidades.eliminar',
             'materias.listar','materias.crear','materias.editar','materias.eliminar',
-            'inscripciones.listar','inscripciones.crear','inscripciones.aprobar','inscripciones.rechazar',
-            'calificaciones.listar','calificaciones.crear','calificaciones.editar','calificaciones.exportar',
+            'inscripciones.listar','inscripciones.crear','inscripciones.editar','inscripciones.aprobar','inscripciones.rechazar',
+            'calificaciones.listar','calificaciones.crear','calificaciones.editar','calificaciones.eliminar','calificaciones.exportar',
             'asistencia.listar','asistencia.registrar','asistencia.justificar',
             'tutores.listar','tutores.crear','tutores.editar','tutores.eliminar',
             'regularizacion.listar','regularizacion.crear','regularizacion.editar',
@@ -27,6 +27,9 @@ class RolePermissionSeeder extends Seeder
             'configuracion.ver','configuracion.editar',
             'auditoria.ver',
             'dashboard.ver',
+            'horarios.listar','horarios.crear','horarios.editar','horarios.eliminar',
+            'notificaciones.ver',
+            'portal.ver',
         ];
 
         foreach ($permissions as $perm) {
@@ -63,7 +66,7 @@ class RolePermissionSeeder extends Seeder
 
         $alumnoRole = Role::firstOrCreate(['name' => 'alumno', 'guard_name' => 'web']);
         $alumnoRole->syncPermissions(Permission::whereIn('name', [
-            'calificaciones.listar','asistencia.listar','reportes.ver','dashboard.ver',
+            'calificaciones.listar','asistencia.listar','dashboard.ver','portal.ver',
         ])->get());
     }
 }

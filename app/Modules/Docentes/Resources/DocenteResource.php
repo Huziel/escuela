@@ -8,7 +8,8 @@ class DocenteResource extends JsonResource
         return [
             'id' => $this->id, 'numero_empleado' => $this->numero_empleado, 'curp' => $this->curp,
             'especialidad' => $this->especialidad, 'especialidad_id' => $this->especialidad_id,
-            'especialidad_nombre' => $this->whenLoaded('especialidadRel', fn() => $this->especialidadRel?->nombre), 'grado_academico' => $this->grado_academico,
+            'especialidad_nombre' => $this->whenLoaded('especialidadRel', fn() => $this->especialidadRel?->nombre),
+            'especialidades' => $this->whenLoaded('especialidades', fn() => $this->especialidades->map(fn($e) => ['id' => $e->id, 'nombre' => $e->nombre])), 'grado_academico' => $this->grado_academico,
             'rfc' => $this->rfc, 'estatus' => $this->estatus, 'fecha_ingreso' => $this->fecha_ingreso?->format('Y-m-d'),
             'materias' => $this->whenLoaded('materias', fn() => $this->materias->map(fn($m) => ['id' => $m->id, 'nombre' => $m->nombre])),
             'grupos' => $this->whenLoaded('grupos', fn() => $this->grupos->map(fn($g) => [
