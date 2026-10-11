@@ -1,0 +1,91 @@
+:root {
+  --color-primary: #C62828;
+  --color-primary-rgb: 198, 40, 40;
+  --color-primary-hover: #E53935;
+  --color-primary-light: rgba(198, 40, 40, 0.12);
+  --color-primary-dark: #A91E22;
+  --color-primary-glow: rgba(198, 40, 40, 0.35);
+
+  --color-secondary: #E57373;
+  --color-secondary-rgb: 229, 115, 115;
+  --color-secondary-hover: #EF9A9A;
+  --color-secondary-light: rgba(229, 115, 115, 0.12);
+
+  --color-accent: #FFCDD2;
+  --color-accent-rgb: 255, 205, 210;
+  --color-accent-light: rgba(255, 205, 210, 0.12);
+  --color-accent-glow: rgba(255, 205, 210, 0.3);
+
+  --color-success: #2ECC71;
+  --color-success-light: rgba(46, 204, 113, 0.12);
+  --color-warning: #F39C12;
+  --color-warning-light: rgba(243, 156, 18, 0.12);
+  --color-danger: #E74C3C;
+  --color-danger-light: rgba(231, 76, 60, 0.12);
+  --color-info: #E57373;
+  --color-info-light: rgba(229, 115, 115, 0.12);
+
+  --color-text: #E6EDF3;
+  --color-text-secondary: #8B949E;
+  --color-text-muted: #5A6570;
+  --color-text-inverse: #FFFFFF;
+
+  --color-bg: #0D1117;
+  --color-bg-secondary: #161B22;
+  --color-bg-tertiary: #1C2128;
+  --color-bg-elevated: #21262D;
+  --color-bg-glass: rgba(22, 27, 34, 0.85);
+
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-light: rgba(255, 255, 255, 0.05);
+  --color-border-hover: rgba(198, 40, 40, 0.3);
+
+  --color-sidebar: rgba(10, 14, 20, 0.85);
+  --color-sidebar-hover: rgba(198, 40, 40, 0.08);
+  --color-sidebar-active: rgba(198, 40, 40, 0.15);
+  --color-sidebar-text: #8B949E;
+  --color-sidebar-text-active: #FFFFFF;
+  --color-sidebar-divider: rgba(255, 255, 255, 0.06);
+
+  --glass-bg: rgba(18, 23, 29, 0.45);
+  --glass-bg-elevated: rgba(18, 23, 29, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.10);
+  --glass-border-highlight: rgba(255, 255, 255, 0.14);
+  --glass-blur: blur(8px);
+  --glass-blur-lg: blur(14px);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+
+  --color-dark: #0D1117;
+  --color-light: #FFFFFF;
+
+  /* ═════════════════════════════════════════════
+     FF CRYSTAL MATERIA TOKENS
+     ═════════════════════════════════════════════ */
+  --crystal-cyan: #00D4FF;
+  --crystal-cyan-rgb: 0, 212, 255;
+  --crystal-cyan-glow: rgba(0, 212, 255, 0.40);
+
+  --crystal-green: #00FF88;
+  --crystal-green-rgb: 0, 255, 136;
+  --crystal-green-glow: rgba(0, 255, 136, 0.40);
+
+  --crystal-gold: #FFD700;
+  --crystal-gold-rgb: 255, 215, 0;
+  --crystal-gold-glow: rgba(255, 215, 0, 0.40);
+
+  --crystal-purple: #B44CFF;
+  --crystal-purple-rgb: 180, 76, 255;
+  --crystal-purple-glow: rgba(180, 76, 255, 0.40);
+
+  --crystal-edge: linear-gradient(180deg, var(--crystal-cyan), var(--color-primary) 30%, var(--crystal-gold) 60%, var(--crystal-purple));
+  --crystal-edge-horizontal: linear-gradient(90deg, var(--crystal-cyan), var(--color-primary) 30%, var(--crystal-gold) 60%, var(--crystal-purple));
+  --crystal-shimmer: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.04) 42%, rgba(255,255,255,0.10) 48%, rgba(255,255,255,0.04) 54%, transparent 60%);
+  --crystal-glass-bg: rgba(18, 23, 29, 0.50);
+  --crystal-glass-border: rgba(0, 212, 255, 0.12);
+  --crystal-inner-light: inset 0 0 60px rgba(0,212,255,0.025), inset 0 0 30px rgba(198,40,40,0.03);
+  --crystal-border-glow: 0 0 8px var(--crystal-cyan-glow), 0 0 16px var(--color-primary-glow);
+  --rune-glow: 0 0 8px var(--crystal-cyan-glow), 0 0 18px var(--color-primary-glow);
+  --rune-glow-intense: 0 0 14px var(--crystal-cyan-glow), 0 0 30px var(--color-primary-glow), 0 0 50px var(--crystal-purple-glow);
+  --rune-border: 1px solid var(--color-primary);
+}

@@ -1,0 +1,163 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  padding: 0.5rem 1.125rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  user-select: none;
+  min-height: 36px;
+  letter-spacing: var(--letter-spacing-normal);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-primary-glow);
+}
+
+.btn:disabled, .btn.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(0.6) brightness(0.6);
+}
+
+/* ═══ AetherPulse click effect ═══ */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid transparent;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.btn:active::after { animation: aetherPulse 0.6s ease-out; }
+
+.btn i, .btn svg {
+  font-size: var(--font-size-base);
+}
+
+/* ═══ Primary: Crystal gradient ═══ */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary-hover), var(--color-primary), var(--color-primary-dark));
+  color: var(--color-text-inverse);
+  border-color: rgba(255,255,255,0.15);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute; top: 0; left: 5%; right: 5%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  opacity: 0.7; pointer-events: none;
+}
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover), var(--color-primary-dark));
+  border-color: rgba(255,255,255,0.25);
+  box-shadow: var(--rune-glow), var(--shadow-glow);
+}
+
+.btn-secondary {
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-border-hover);
+}
+
+.btn-outline-primary {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.btn-outline-primary:hover:not(:disabled) {
+  background: var(--color-primary-light);
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-success {
+  background: var(--color-success);
+  color: var(--color-text-inverse);
+  border-color: var(--color-success);
+}
+.btn-success:hover:not(:disabled) {
+  background: #27AE60;
+  box-shadow: 0 0 12px rgba(46, 204, 113, 0.3);
+}
+
+.btn-warning {
+  background: var(--color-warning);
+  color: var(--color-text-inverse);
+  border-color: var(--color-warning);
+}
+.btn-warning:hover:not(:disabled) {
+  background: #E67E22;
+}
+
+.btn-danger {
+  background: var(--color-danger);
+  color: var(--color-text-inverse);
+  border-color: var(--color-danger);
+}
+.btn-danger:hover:not(:disabled) {
+  background: #C0392B;
+  box-shadow: 0 0 12px rgba(231, 76, 60, 0.3);
+}
+
+.btn-info {
+  background: var(--color-info);
+  color: var(--color-text-inverse);
+  border-color: var(--color-info);
+}
+.btn-info:hover:not(:disabled) {
+  background: #2980B9;
+}
+
+.btn-sm {
+  font-size: var(--font-size-xs);
+  padding: 0.3125rem 0.75rem;
+  min-height: 28px;
+}
+
+.btn-lg {
+  font-size: var(--font-size-base);
+  padding: 0.6875rem 1.5rem;
+  min-height: 44px;
+}
+
+.btn-icon {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+.btn-sm.btn-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.btn .spinner-border {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+}
+.btn-sm .spinner-border {
+  width: 12px;
+  height: 12px;
+}
